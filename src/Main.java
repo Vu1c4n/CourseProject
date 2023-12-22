@@ -1,39 +1,41 @@
-import java.util.Calendar;
-import java.util.PriorityQueue;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        test();
+            testFunc();
+//        testIO();
     }
-    public static void test(){
-        Node n1 = new Node(10,'a');
-        Node n2 = new Node(2,'h');
-        Node n3 = new Node(1,'p');
-        Node n4 = new Node(3,' ');
-        Node n5 = new Node(1,'.');
-        Node[] nodesAry = new Node[]{n1,n2,n3,n4,n5};
+    public static void testIO(){
+        HuffmanTree ht = new HuffmanTree();
+        IOManager.writeTree(ht);
+    }
+    public static void testFunc(){
+        String rawText1 = "Central South University Computer Science CJY";
+        String rawText2 = "ababababaaaaaaaaaaaaaaaaaaaacdsaknaaaaaaaaaaa";
 
-        //
-        PriorityQueue<Node> nodes = new PriorityQueue<>();
-        for(Node n : nodesAry){
-            nodes.offer(n);
-        }
+        /* 从终端输入String */
+        Scanner sc = new Scanner(System.in);
+        String s = sc.nextLine();
+        IOManager.writeFile(IOManager.TO_BE_TRAN,s);
+        HuffmanTree tree = new HuffmanTree(s); // 创建树
+        tree.prtInOrd(); // 打印树
 
-        /* BUILD AND COMPILE */
-        HuffmanTree tree = HuffmanTree.build(nodes);
-        // tree.prtPreOrd();
-        HashMap<Character,String> map = HuffmanTree.compile(tree);
-        System.out.println(map);
+        String ecdData = tree.getEcdData();
+        System.out.println("编码结果：" + ecdData); // 打印String的编码结果
 
-        /* ENCODE */
-        String s = "a a aaaaaaaahph. ";
-        String output = HuffmanTree.encode(map,s);
-        System.out.println(output);
+        HashMap<String, Character> dcdMap = tree.getDcdMap();
+        String rst = HuffmanTree.decode(dcdMap,ecdData);
+        System.out.println("译码结果： "+rst);
+        System.out.println("压缩率："+HuffmanTree.compRate(ecdData, rst));
 
-        /* DECODE */
-        HashMap<String,Character> revMap = HuffmanTree.revMap(map);
-        String content = HuffmanTree.decodeText(revMap,output);
-        System.out.println(content);
+        // IO
+        IOManager.writeTree(tree);
+        HuffmanTree newT = IOManager.readTree();
+        assert newT != null;
+        System.out.println(newT.getEcdData());
+        IOManager.writeFile(IOManager.TEXT_FILE,rst);
+        IOManager.writeFile(IOManager.CODE_PRINT,tree.getEcdData());
+        IOManager.writeFile(IOManager.CODE_FILE,tree.getEcdData());
     }
 }

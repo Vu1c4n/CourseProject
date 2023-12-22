@@ -1,4 +1,6 @@
-public class Node implements Comparable<Node>{
+import java.io.Serializable;
+
+public class Node implements Comparable<Node>, Serializable {
     private final int weight;
     private char ch;
     private Node lcn = null;
@@ -33,7 +35,7 @@ public class Node implements Comparable<Node>{
     }
     @Override
     public String toString(){
-        return ("[weight:" + this.weight + ",character:" + this.ch + "]");
+        return ("{" + this.ch + ":" + this.weight + "}");
     }
     @Override
     public int compareTo(Node n){
