@@ -3,6 +3,19 @@
 
 
 
-## HuffmanCode
+## HuffmanTree
 
-哈夫曼编码相关代码
+哈夫曼树类
+
+## Node
+
+树节点类
+
+## Main
+
+主函数入口
+
+## IOManager
+
+IO相关操作
+

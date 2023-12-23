@@ -39,4 +39,20 @@ public class IOManager {
         }
     }
 
+    public static String readFile(String path){
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader(path));
+            String s = reader.readLine();
+            reader.close();
+            System.out.println("文件读取成功");
+            return s;
+        } catch(Exception e){
+            System.out.println("文件读取失败 "+path);
+            return null;
+        }
+    }
+
+    public static void main(String[] args) {
+        readFile(IOManager.TO_BE_TRAN);
+    }
 }
